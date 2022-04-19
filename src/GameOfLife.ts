@@ -7,7 +7,6 @@ export default function life() {
       -  Any live cell with more than three live neighbours dies, as if by overpopulation.
       -  Any dead cell with exactly three live neighbours becomes a live cell, as if by reproduction.  
     */
-
   const MAP_SIZE_X = 10;
   const MAP_SIZE_Y = 10;
   const SPEED = 250; //ms
@@ -30,19 +29,12 @@ export default function life() {
     [x - 1, y - 1],
   ];
 
-  // Planner #1
-  MATRIX[2][3] = 1;
-  MATRIX[3][4] = 1;
-  MATRIX[4][2] = 1;
-  MATRIX[4][3] = 1;
-  MATRIX[4][4] = 1;
-
-  // Planner #2
-  // MATRIX[0][1] = 1;
-  // MATRIX[1][2] = 1;
-  // MATRIX[2][0] = 1;
-  // MATRIX[2][1] = 1;
-  // MATRIX[2][2] = 1;
+  // Planner
+  MATRIX[0][1] = 1;
+  MATRIX[1][2] = 1;
+  MATRIX[2][0] = 1;
+  MATRIX[2][1] = 1;
+  MATRIX[2][2] = 1;
 
   let MATRIX2 = new Array(MAP_SIZE_Y)
     .fill(DEAD_CELL)
