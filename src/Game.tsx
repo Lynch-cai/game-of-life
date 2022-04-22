@@ -8,16 +8,6 @@ function Game() {
     const ctx = canvas.getContext("2d");
     ctx.canvas.width = w;
     ctx.canvas.height = h;
-    for (let x = 0; x <= w; x += gridSize) {
-      for (let y = 0; y <= h; y += gridSize) {
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, h);
-        ctx.stroke();
-        ctx.moveTo(0, y);
-        ctx.lineTo(w, y);
-        ctx.stroke();
-      }
-    }
 
     const maxSizeX = Math.floor(w / gridSize);
     const maxSizeY = Math.floor(h / gridSize);
@@ -26,15 +16,19 @@ function Game() {
     // matrix
     let matrix = initializeMatrix(maxSizeX, maxSizeY);
 
-    setInterval(() => {
+    return setInterval(() => {
+      ctx.fillStyle = "#1B1B1B";
+      ctx.fillRect(0, 0, w, h);
       life(maxSizeX, maxSizeX, matrix).forEach((line, y) =>
         line.forEach((cell, x) => {
           if (cell === 1) {
-            ctx.fillStyle = "black";
-            ctx.fillRect(x * 20 + 1, y * 20 + 1, 18, 18);
-          } else {
-            ctx.fillStyle = "white";
-            ctx.fillRect(x * 20 + 1, y * 20 + 1, 18, 18);
+            ctx.fillStyle = `#FFFFFF`;
+            ctx.fillRect(
+              x * gridSize + 1,
+              y * gridSize + 1,
+              gridSize - 2,
+              gridSize - 2,
+            );
           }
         }),
       );
@@ -42,13 +36,21 @@ function Game() {
   };
 
   useEffect(() => {
-    drawGrid(800, 800, 20, "grid");
+    const interval = drawGrid(500, 500, 5, "grid");
+    return () => clearInterval(interval);
   });
-  return <Canvas id="grid"></Canvas>;
+  return (
+    <>
+      <Canvas id="grid"></Canvas>;
+    </>
+  );
 }
 
 export default Game;
 
 const Canvas = styled.canvas`
-  border: black 1px solid;
+  border: #333333 1px solid;
+  background: #1b1b1b;
+  border-radius: 1rem;
+  padding: 1rem;
 `;
